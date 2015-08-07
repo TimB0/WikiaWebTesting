@@ -1,9 +1,10 @@
 package com;
 
 import com.core.Utils;
-import com.testssuites.ScenarioOne;
-import com.testssuites.ScenarioTwo;
+import com.testssuites.Homework;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by Artur Spirin on 8/6/2015.
@@ -11,28 +12,52 @@ import org.junit.runner.JUnitCore;
 
 public class Runner {
 
+    public static WebDriver driver;
     public static String driverID;
-    public static String username = "ArturSp";
-    public static String password = "scorpion90";
+    public static String username;
+    public static String password;
 
-    public static void main(String[] args){
+    public static void main(String[] arg){
 
-        Utils.createDriver(driverID);
-        for(String arg:args){
-            if(arg.contains("-b")){
+        //String[] arg = new String[3];
+        //arg[0] = "-b:chrome";
+        //arg[1] = "-u:ArturSp";
+        //arg[2] = "-p:scorpion90";
 
-            }else if(arg.contains("-u")){
-
-            }else if(arg.contains("-p")){
-
-            }
+        // Parsing args to set flags for which driver to create for testing
+        if(arg[0].toLowerCase().contains("chrome")){
+            driverID = "Chrome";
+            //driver = Utils.createDriver(driverID);
+        }else{
+            driverID = "Firefox";
+            //driver = Utils.createDriver(driverID);
         }
-        if(args[1] != null && args[2] != null){
-            username = args[1];
-            password = args[2];
+
+        // parsing args to find out if we have username and password passed in as an arg
+        if(arg[1] != null && arg[2] != null){
+            username = arg[1].replaceAll("-u:", "");
+            password = arg[2].replaceAll("-p:", "");
+        }else{
+            username = "defaultUsername";
+            password = "defaultPassword";
         }
 
-        JUnitCore.runClasses(ScenarioOne.class);
-        JUnitCore.runClasses(ScenarioTwo.class);
+        // Starting tests
+        Result results = JUnitCore.runClasses(Homework.class);
+        System.out.println("Suite 1 finished");
+        System.out.println("Tests Ran: " + results.getRunCount());
+        System.out.println("Tests Failed: " + results.getFailureCount());
+
+        // Cleaning up
+        driver.close();
+        driver.quit();
+    }
+
+    public static WebDriver getDriver(){
+
+        if(driver == null){
+            driver = Utils.createDriver(driverID);
+        }
+        return driver;
     }
 }

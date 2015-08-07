@@ -7,6 +7,11 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by Artur Spirin on 8/6/2015.
  **/
+
+/**
+ * You can keep on adding elements for the respective page to this class to expand the test coverage
+ */
+
 public class HeaderObjects {
 
     public static WebElement signInDropDown(WebDriver driver){

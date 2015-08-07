@@ -1,31 +1,26 @@
 package com.pageactions;
 
-import com.Runner;
 import com.pageobjects.HeaderObjects;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Artur Spirin on 8/6/2015.
  **/
+
+// In this class we would have all the actions that can be performed on the header of the page such as clicking the Wikia logo or opening the drop down
+// For the interest of time I have put login method as one big method but idially it would need to be broken down into a number of smaller methods that
+// would perform a very small part of the end to end process, like one method would move the mouse to the drop down and
+// another could click the sign in button. Out of those small methods you can then build bigger action methods if needed
+
 public class HeaderActions {
 
     public static void login(WebDriver driver, String username, String password){
 
-        // Waiting for 2 second or Webdriver thinks the next element is not attached to the DOM
-        try{Thread.sleep(2000);}catch (InterruptedException e){e.printStackTrace();}
-
         // Hovering over the Sign In element to trigger the drop down
         Actions actions = new Actions(driver);
         actions.moveToElement(HeaderObjects.signInDropDown(driver)).build().perform();
-
-        // Waiting for 2 second or Webdriver cannot find the next elements in the drop down
-        try{Thread.sleep(2000);}catch (InterruptedException e){e.printStackTrace();}
 
         // Entering username into the edit box
         HeaderObjects.usernameInput(driver).sendKeys(username);
@@ -36,15 +31,15 @@ public class HeaderActions {
         // Click the log in button to login with the above credentials
         HeaderObjects.loginButton(driver).click();
 
-        // Next elements attribute does not update fast enough so waiting for 2 seconds
-        try{Thread.sleep(2000);}catch (InterruptedException e){e.printStackTrace();}
-
         // Making sure that username is displayed in the user properties
+        try{Thread.sleep(2000);}catch (InterruptedException e){e.printStackTrace();}
+        String attribute = HeaderObjects.usernameDropDown(driver).getAttribute("title").toLowerCase();
         try{
-            Assert.assertTrue(HeaderObjects.usernameDropDown(driver).getAttribute("title").toLowerCase().contains(username.toLowerCase()));
+            Assert.assertTrue(attribute.contains(username.toLowerCase()));
         }catch (AssertionError e){
-            throw new AssertionError("User name is not part of the attribute after logging in!");
+            throw new AssertionError("User name is not part of the attribute after logging in! Got: " + attribute);
         }
+
     }
 
     public static void logout(WebDriver driver){

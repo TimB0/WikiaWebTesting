@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Artur on 8/7/2015.
+ * Created by Artur Spirin on 8/7/2015.
  */
 public class Utils {
 
@@ -21,6 +21,7 @@ public class Utils {
             driver = new FirefoxDriver();
         }
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         return driver;
     }
 
