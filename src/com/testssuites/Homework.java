@@ -1,11 +1,10 @@
 package com.testssuites;
 
 import com.Runner;
-import com.pageactions.HeaderActions;
-import com.pageobjects.AddVideoPageObjects;
-import com.pageobjects.HeaderObjects;
-import com.pageobjects.HomeworkPageObjects;
-import com.pageobjects.VideosPageObjects;
+import com.pages.AddVideoPage;
+import com.pages.GlobalHeader;
+import com.pages.HomeworkPage;
+import com.pages.VideosPage;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -31,13 +30,13 @@ public class Homework {
         Assert.assertTrue(driver.getCurrentUrl().contains("http://qm-homework.wikia.com/wiki/QM_HomeWork_Wikia"));
 
         // Checking if we are logged in or not. If we are, then we will log out
-        Boolean loggedOut = HeaderObjects.usernameDropDown(driver).getAttribute("title").toLowerCase().contains("log in");
+        Boolean loggedOut = GlobalHeader.usernameDropDown(driver).getAttribute("title").toLowerCase().contains("log in");
         if(!loggedOut){
-            HeaderActions.logout(driver);
+            GlobalHeader.logout(driver);
         }
 
         // Calling premade action to perform sign in function -- more details in the login method itself
-        HeaderActions.login(driver, Runner.username, Runner.password);
+        GlobalHeader.login(driver, Runner.username, Runner.password);
 
     }
 
@@ -55,16 +54,16 @@ public class Homework {
 
         // Checking if we are logged in or not. If we are, then we will log out
         Thread.sleep(2000); // Small pause to let the elements load properly
-        Boolean loggedOut = HeaderObjects.usernameDropDown(driver).getAttribute("title").toLowerCase().contains("log in");
+        Boolean loggedOut = GlobalHeader.usernameDropDown(driver).getAttribute("title").toLowerCase().contains("log in");
         if(loggedOut){
-            HeaderActions.login(driver, Runner.username, Runner.password);
+            GlobalHeader.login(driver, Runner.username, Runner.password);
         }
 
         // Clicking on the Contribute button to open the dropdown menu
-        HomeworkPageObjects.contributeDropDown(driver).click();
+        HomeworkPage.contributeDropDown(driver).click();
 
         // Clicking the Add Video menu button
-        HomeworkPageObjects.contributeDropDown_AddVideo(driver).click();
+        HomeworkPage.contributeDropDown_AddVideo(driver).click();
         Thread.sleep(1000); // Small pause to let the elements load properly
 
         // Making sure that we were taken to the right page
@@ -72,14 +71,14 @@ public class Homework {
 
 
         // Entering url of the video file into the edit text field
-        AddVideoPageObjects.addUrlTextBox(driver).sendKeys("http://www.youtube.com/watch?v=h9tRIZyTXTI");
+        AddVideoPage.addUrlTextBox(driver).sendKeys("http://www.youtube.com/watch?v=h9tRIZyTXTI");
 
         // Clicking the Add button to submit the video
-        AddVideoPageObjects.addUrlButton(driver).click();
+        AddVideoPage.addUrlButton(driver).click();
         Thread.sleep(1000); // Small pause to let the elements load properly
 
         // Creating variables for further assertions
-        String msg = VideosPageObjects.successfullyAddedMsg(driver).getText();
+        String msg = VideosPage.successfullyAddedMsg(driver).getText();
         String expectedMsg = "Video page File:The Best Classical Music In The World was successfully added.";
         String expectedLink = "File:The Best Classical Music In The World";
 
@@ -87,7 +86,7 @@ public class Homework {
         Assert.assertTrue(msg.contains(expectedMsg));
 
         // Clicking the link in the flash msg to go to the video
-        VideosPageObjects.successfullyAddedMsg_FileLink(driver, expectedLink).click();
+        VideosPage.successfullyAddedMsg_FileLink(driver, expectedLink).click();
         Thread.sleep(1000); // Small pause to let the elements load properly
 
         // Making sure that the URL is a match for the file name with exception for the underscores

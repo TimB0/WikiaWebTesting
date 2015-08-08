@@ -1,4 +1,4 @@
-package com.pageobjects;
+package com.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
  * You can keep on adding elements for the respective page to this class to expand the test coverage
  */
 
-public class HomeworkPageObjects {
+public class HomeworkPage {
 
     public static WebElement contributeDropDown(WebDriver driver){
 

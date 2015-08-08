@@ -1,6 +1,7 @@
 package com;
 
 import com.core.Utils;
+import com.testssuites.HeaderFunctionality;
 import com.testssuites.Homework;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -19,32 +20,37 @@ public class Runner {
 
     public static void main(String[] arg){
 
-        //String[] arg = new String[3];
-        //arg[0] = "-b:chrome";
-        //arg[1] = "-u:ArturSp";
-        //arg[2] = "-p:scorpion90";
-
-        // Parsing args to set flags for which driver to create for testing
-        if(arg[0].toLowerCase().contains("chrome")){
+        // Try catch for running and debugging from idea and not via cmd line
+        try{
+            // Parsing args to set flags for which driver to create for testing
+            if(arg[0].toLowerCase().contains("firefox")){
+                driverID = "Firefox";
+            }else{
+                driverID = "Chrome";
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
             driverID = "Chrome";
-            //driver = Utils.createDriver(driverID);
-        }else{
-            driverID = "Firefox";
-            //driver = Utils.createDriver(driverID);
         }
 
-        // parsing args to find out if we have username and password passed in as an arg
-        if(arg[1] != null && arg[2] != null){
-            username = arg[1].replaceAll("-u:", "");
-            password = arg[2].replaceAll("-p:", "");
-        }else{
-            username = "defaultUsername";
-            password = "defaultPassword";
+        // Try catch for running and debugging from idea and not via cmd line as well as to allow username/password
+        // ability for not passing in those args
+        try {
+            // parsing args to find out if we have username and password passed in as an arg. If not, we will use default
+            if(arg[1].contains("-u:") && arg[2].contains("-p:")){
+                username = arg[1].replaceAll("-u:", "");
+                password = arg[2].replaceAll("-p:", "");
+            }else{
+                username = "defaultUsername";
+                password = "defaultPassword";
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            username = "ArturSp";
+            password = "scorpion90";
         }
 
         // Starting tests
+        //Result results = JUnitCore.runClasses(HeaderFunctionality.class);
         Result results = JUnitCore.runClasses(Homework.class);
-        System.out.println("Suite 1 finished");
         System.out.println("Tests Ran: " + results.getRunCount());
         System.out.println("Tests Failed: " + results.getFailureCount());
 
