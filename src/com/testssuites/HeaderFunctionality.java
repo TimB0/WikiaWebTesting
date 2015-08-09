@@ -1,14 +1,14 @@
 package com.testssuites;
 
 import com.Runner;
-import com.core.Utils;
-import com.pages.CreateNewWikiPage;
-import com.pages.GlobalFooter;
 import com.pages.GlobalHeader;
 import com.pages.WikiaMainPage;
-import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -25,73 +25,103 @@ public class HeaderFunctionality {
         driver.get(WikiaMainPage.URL);
     }
 
-    @Test
-    public void clickWikiaLogo(){
+    /**
+     * What ever you want to do with the test results can be passed in to the failed/succeeded methods respectively.
+     * For example, if you want results to be reported to a DB or test managements system like TestLink,
+     * you can pass that logic here
+     */
+    @Rule
+    public TestRule listen = new TestWatcher() {
 
-        String expectedUrl = WikiaMainPage.URL;
-        GlobalHeader.click(GlobalHeader.wikiaLogo(driver));
-        String actualUrl = driver.getCurrentUrl();
-        Assert.assertTrue(actualUrl.equals(expectedUrl));
+        @Override
+        public void failed(Throwable t, Description description) {
+
+            t.printStackTrace();
+            System.out.println("[TestRule / failed] Test FAILED!\n");
+        }
+
+        @Override
+        public void succeeded(Description description) {
+
+            System.out.println("[TestRule / succeeded] Test PASSED!\n");
+
+        }
+    };
+
+    /**
+     * None of the tests have explicit assertions that is because URL and Title is being automatically asserted
+     * behind the scenes. Any page specific unique elements can be added for assertions in the tests explicitly
+     * as needed
+     */
+    @Test
+    public void navigateToMainWikia(){
+
+        GlobalHeader.click("wikia logo", driver);
     }
 
     @Test
-    public void clickStartWikia(){
+    public void navigateToStartWikia(){
 
-        String expectedUrl = CreateNewWikiPage.URL;
-        GlobalHeader.click(GlobalHeader.startWikiaButton(driver));
-        String actualUrl = driver.getCurrentUrl();
-        Assert.assertTrue(actualUrl.equals(expectedUrl));
+        GlobalHeader.click("start a wikia", driver);
     }
 
     @Test
     public void search(){
 
-        String searchTerm = "something interesting";
-        GlobalHeader.search(driver, searchTerm);
-        String actualUrl = driver.getCurrentUrl();
-        System.out.println(actualUrl);
-        Assert.assertTrue(actualUrl.contains(searchTerm.replaceAll(" ", "+")));
+        GlobalHeader.search("something interesting hmmm", driver);
     }
 
     @Test
     public void navigateToComicsHub(){
 
-
+        GlobalHeader.goToHub("comics", driver);
     }
 
     @Test
     public void navigateToTvHub(){
 
-
+        GlobalHeader.goToHub("tv", driver);
     }
 
     @Test
     public void navigateToMoviesHub(){
 
-
+        GlobalHeader.goToHub("movies", driver);
     }
 
     @Test
     public void navigateToMusicHub(){
 
-
+        GlobalHeader.goToHub("music", driver);
     }
 
     @Test
     public void navigateToBooksHub(){
 
-
+        GlobalHeader.goToHub("books", driver);
     }
 
     @Test
     public void navigateToGamesHub(){
 
-
+        GlobalHeader.goToHub("games", driver);
     }
 
     @Test
     public void navigateToLifestyleHub(){
 
+        GlobalHeader.goToHub("lifestyle", driver);
+    }
 
+    @Test
+    public void login(){
+
+        GlobalHeader.login(driver, Runner.username, Runner.password);
+    }
+
+    @Test
+    public void logout(){
+
+        GlobalHeader.logout(driver);
     }
 }

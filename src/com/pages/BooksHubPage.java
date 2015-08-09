@@ -6,4 +6,5 @@ package com.pages;
 public class BooksHubPage {
 
     public static final String URL = "http://bookshub.wikia.com/wiki/Books_Hub";
+    public static final String TITLE = "Books Hub";
 }

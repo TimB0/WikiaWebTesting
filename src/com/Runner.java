@@ -1,7 +1,7 @@
 package com;
 
-import com.core.Utils;
 import com.testssuites.HeaderFunctionality;
+import com.utilities.Utils;
 import com.testssuites.Homework;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;

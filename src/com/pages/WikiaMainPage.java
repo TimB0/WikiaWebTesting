@@ -6,4 +6,5 @@ package com.pages;
 public class WikiaMainPage {
 
     public static final String URL = "http://www.wikia.com/Wikia";
+    public static final String TITLE = "Collaborative communities for everyone!";
 }

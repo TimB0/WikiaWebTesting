@@ -6,4 +6,5 @@ package com.pages;
 public class TvHubPage {
 
     public static final String URL = "http://tvhub.wikia.com/wiki/TV_Hub";
+    public static final String TITLE = "TV Hub";
 }

@@ -14,6 +14,10 @@ import org.openqa.selenium.WebElement;
 
 public class HomeworkPage {
 
+    public static final String URL = "http://qm-homework.wikia.com";
+    public static final String URL_REDIRECT = "http://qm-homework.wikia.com/wiki/QM_HomeWork_Wikia";
+    public static final String TITLE = "";
+
     public static WebElement contributeDropDown(WebDriver driver){
 
         return driver.findElement(By.xpath("//*[@id=\"WikiHeader\"]/div[1]/nav"));

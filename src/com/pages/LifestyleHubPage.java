@@ -6,4 +6,5 @@ package com.pages;
 public class LifestyleHubPage {
 
     public static final String URL = "http://lifestylehub.wikia.com/wiki/Lifestyle_Hub";
+    public static final String TITLE = "Lifestyle Hub";
 }

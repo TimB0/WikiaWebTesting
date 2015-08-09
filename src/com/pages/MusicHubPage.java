@@ -6,4 +6,5 @@ package com.pages;
 public class MusicHubPage {
 
     public static final String URL = "http://musichub.wikia.com/wiki/Music_Hub";
+    public static final String TITLE = "Music Hub";
 }
