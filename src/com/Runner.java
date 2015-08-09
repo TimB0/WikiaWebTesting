@@ -44,8 +44,8 @@ public class Runner {
                 password = "defaultPassword";
             }
         }catch (ArrayIndexOutOfBoundsException e){
-            username = "ArturSp";
-            password = "scorpion90";
+            username = "secretUN";
+            password = "secretPW";
         }
 
         // Starting tests

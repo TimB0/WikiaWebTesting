@@ -1,1 +1,4 @@
-.idea/workspace.xml 
+$ ls -1d .git*
+.git
+.gitignore
+.idea/workspace.xml
